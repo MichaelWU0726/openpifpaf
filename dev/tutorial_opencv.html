@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>FAQ &#8212; OpenPifPaf Guide DEV</title>
+    <title>OpenCV &#8212; OpenPifPaf Guide DEV</title>
     
   <link rel="stylesheet" href="_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
 
@@ -56,8 +56,8 @@
     <link rel="shortcut icon" href="_static/favicon.png"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="CrowdPose" href="plugins_crowdpose.html" />
-    <link rel="prev" title="Plugins" href="plugins_overview.html" />
+    <link rel="next" title="Cifar10" href="plugins_cifar10.html" />
+    <link rel="prev" title="CrowdPose" href="plugins_crowdpose.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -116,7 +116,7 @@
   Chapters
  </span>
 </p>
-<ul class="current nav sidenav_l1">
+<ul class="nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="predict_api.html">
    Prediction API
@@ -147,8 +147,8 @@
    Plugins
   </a>
  </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+ <li class="toctree-l1">
+  <a class="reference internal" href="faq.html">
    FAQ
   </a>
  </li>
@@ -158,14 +158,14 @@
   Tutorials
  </span>
 </p>
-<ul class="nav sidenav_l1">
+<ul class="current nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="plugins_crowdpose.html">
    CrowdPose
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="tutorial_opencv.html">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
    OpenCV
   </a>
  </li>
@@ -250,7 +250,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/faq.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="_sources/tutorial_opencv.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -288,7 +288,7 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/vita-epfl/openpifpaf/dev?urlpath=tree/guide/faq.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/vita-epfl/openpifpaf/dev?urlpath=tree/guide/tutorial_opencv.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="_static/images/logo_binder.svg"
@@ -311,28 +311,13 @@
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#why-evaluate-with-641px-instead-of-640px">
-   Why evaluate with 641px instead of 640px?
+  <a class="reference internal nav-link" href="#source">
+   Source
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#installation-problem">
-   Installation Problem
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#matplotlib-backend">
-   Matplotlib Backend
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#predict-is-slow">
-   Predict is slow
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#python-h-or-gcc-is-missing">
-   Python.h or gcc is missing
+  <a class="reference internal nav-link" href="#prediction">
+   Prediction
   </a>
  </li>
 </ul>
@@ -347,60 +332,71 @@
         
               <div>
                 
-  <div class="section" id="faq">
-<h1>FAQ<a class="headerlink" href="#faq" title="Permalink to this headline">¶</a></h1>
-<p>Frequently Asked Questions (FAQ).</p>
-<div class="section" id="why-evaluate-with-641px-instead-of-640px">
-<h2>Why evaluate with 641px instead of 640px?<a class="headerlink" href="#why-evaluate-with-641px-instead-of-640px" title="Permalink to this headline">¶</a></h2>
-<p>OpenPifPaf uses the standard convention of PyTorch models to pad convolutions.
-Let’s start with an example: a single layer of a 3x3 conv with stride 2 that is padded with 1. For an output feature map of size 2x2, the input must be of size 3x3. This generalization holds: the input must be of size <code class="docutils literal notranslate"><span class="pre">(nx</span> <span class="pre">*</span> <span class="pre">stride</span> <span class="pre">+</span> <span class="pre">1,</span> <span class="pre">ny</span> <span class="pre">*</span> <span class="pre">stride</span> <span class="pre">+</span> <span class="pre">1)</span></code>.
-The models that OpenPifPaf uses have an intermediate layer with stride 16. Therefore, good input image sizes are multiples of 16 plus 1.</p>
-<p>It is usually not a problem if the input size is not perfect. There will just be a small margin on the right side and bottom of the image that is not “covered” by a feature map cell.</p>
-<p>For more info, see the section on <a class="reference internal" href="models.html#coordinate-system"><span class="std std-ref">Coordinate System</span></a>.</p>
-</div>
-<div class="section" id="installation-problem">
-<h2>Installation Problem<a class="headerlink" href="#installation-problem" title="Permalink to this headline">¶</a></h2>
-<p>This project uses continuous integration testing (CI). That means that a set of
-unit and integration tests is run on multiple versions of Linux, MacOSX and
-Windows for every code change. The result of these tests is here:
-<a class="reference external" href="https://github.com/vita-epfl/openpifpaf/actions/workflows/tests.yml">GitHub Action Tests</a>
-and click on the latest test for the main branch to see something like this:</p>
-<p><img alt="github action test overview" src="_images/githubtests.png" /></p>
-<p>You can click on a build job to see its terminal output. The terminal output
-shows all steps from cloning the repository, installing PyTorch, installing
-OpenPifPaf to running linting and the actual tests.
-If you think the list of platforms and Python versions is outdated and you want
-a particular combination be added to this list, please file a
-<a class="reference external" href="https://github.com/vita-epfl/openpifpaf/issues">GitHub issue</a>.</p>
-</div>
-<div class="section" id="matplotlib-backend">
-<h2>Matplotlib Backend<a class="headerlink" href="#matplotlib-backend" title="Permalink to this headline">¶</a></h2>
-<p>I avoid any plotting on my training servers. However, if you insist on creating plots on the server, you might run into constraints of certain matplotlib backends not being available. If you have a backend that you know is working for your setup, you can select it by prepending any command, for example: <code class="docutils literal notranslate"><span class="pre">MPLBACKEND=agg</span> <span class="pre">python3</span> <span class="pre">-m</span> <span class="pre">openpifpaf.train</span> <span class="pre">...</span></code>. This would set the backend to <code class="docutils literal notranslate"><span class="pre">agg</span></code> but you can use something else. This works for all Python scripts that use matplotlib.</p>
-<p>For video on MacOSX, an interactive GUI is required that can update in real-time. I use the matplotlib backend that is called “macosx” like this: <code class="docutils literal notranslate"><span class="pre">MPLBACKEND=macosx</span> <span class="pre">python3</span> <span class="pre">-m</span> <span class="pre">openpifpaf.video</span> <span class="pre">...</span></code>.</p>
-</div>
-<div class="section" id="predict-is-slow">
-<h2>Predict is slow<a class="headerlink" href="#predict-is-slow" title="Permalink to this headline">¶</a></h2>
-<p>Check whether your installation of PyTorch can access CUDA for GPU processing.
-If the output of the command below is False, then PyTorch cannot make use of your GPU and OpenPifPaf falls back to CPU processing.</p>
+  <div class="section" id="opencv">
+<h1>OpenCV<a class="headerlink" href="#opencv" title="Permalink to this headline">¶</a></h1>
+<p>OpenCV is a popular framework for image and video processing. On this tutorial,
+we show how OpenPifPaf can integrate with a workflow from OpenCV. OpenPifPaf
+also comes with a video tool for processing videos from files or usb cameras
+that is based on OpenCV, <a class="reference internal" href="cli_help.html#cli-help-video"><span class="std std-ref">openpifpaf.video</span></a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">bash</span>
-python -c &quot;import torch; print(torch.cuda.is_available())&quot;
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cv2</span>
+<span class="kn">import</span> <span class="nn">openpifpaf</span>
+
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="n">openpifpaf</span><span class="o">.</span><span class="n">show</span><span class="o">.</span><span class="n">Canvas</span><span class="o">.</span><span class="n">show</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">openpifpaf</span><span class="o">.</span><span class="n">show</span><span class="o">.</span><span class="n">Canvas</span><span class="o">.</span><span class="n">image_min_dpi</span> <span class="o">=</span> <span class="mi">200</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="source">
+<h2>Source<a class="headerlink" href="#source" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">cv2.VideoCapture</span></code> class supports an enourmous amount of sources
+(files, cameras, rtmp, etc, …) and abstracts the details away. Here, we will
+just pass in a single image, but the rest of the tutorial still applies.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">capture</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="s1">&#39;coco/000000081988.jpg&#39;</span><span class="p">)</span>
+<span class="n">_</span><span class="p">,</span> <span class="n">image</span> <span class="o">=</span> <span class="n">capture</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="n">image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2RGB</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">openpifpaf</span><span class="o">.</span><span class="n">show</span><span class="o">.</span><span class="n">Canvas</span><span class="o">.</span><span class="n">image</span><span class="p">(</span><span class="n">image</span><span class="p">)</span> <span class="k">as</span> <span class="n">ax</span><span class="p">:</span>
+    <span class="k">pass</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>False
+<img alt="_images/tutorial_opencv_4_0.png" src="_images/tutorial_opencv_4_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="prediction">
+<h2>Prediction<a class="headerlink" href="#prediction" title="Permalink to this headline">¶</a></h2>
+<p>Now that we have the image, we can instantiate an OpenPifPaf network and decoder.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">net_cpu</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">openpifpaf</span><span class="o">.</span><span class="n">network</span><span class="o">.</span><span class="n">Factory</span><span class="p">(</span><span class="n">checkpoint</span><span class="o">=</span><span class="s1">&#39;shufflenetv2k16&#39;</span><span class="p">,</span> <span class="n">download_progress</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">factory</span><span class="p">()</span>
+<span class="n">decoder</span> <span class="o">=</span> <span class="n">openpifpaf</span><span class="o">.</span><span class="n">decoder</span><span class="o">.</span><span class="n">factory</span><span class="p">([</span><span class="n">hn</span><span class="o">.</span><span class="n">meta</span> <span class="k">for</span> <span class="n">hn</span> <span class="ow">in</span> <span class="n">net_cpu</span><span class="o">.</span><span class="n">head_nets</span><span class="p">])</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">openpifpaf</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">NumpyImageList</span><span class="p">([</span><span class="n">image</span><span class="p">])</span>
+
+<span class="n">annotation_painter</span> <span class="o">=</span> <span class="n">openpifpaf</span><span class="o">.</span><span class="n">show</span><span class="o">.</span><span class="n">AnnotationPainter</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">dataset_image</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">meta</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+    <span class="n">predictions</span> <span class="o">=</span> <span class="n">decoder</span><span class="o">.</span><span class="n">batch</span><span class="p">(</span><span class="n">net_cpu</span><span class="p">,</span> <span class="n">dataset_image</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">with</span> <span class="n">openpifpaf</span><span class="o">.</span><span class="n">show</span><span class="o">.</span><span class="n">Canvas</span><span class="o">.</span><span class="n">image</span><span class="p">(</span><span class="n">image</span><span class="p">)</span> <span class="k">as</span> <span class="n">ax</span><span class="p">:</span>
+        <span class="n">annotation_painter</span><span class="o">.</span><span class="n">annotations</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">predictions</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="_images/tutorial_opencv_6_0.png" src="_images/tutorial_opencv_6_0.png" />
 </div>
-<p>You can also run <code class="docutils literal notranslate"><span class="pre">predict</span></code> with the <code class="docutils literal notranslate"><span class="pre">--debug</span></code> option. Compare your output with the output in <a class="reference internal" href="predict_cli.html"><span class="doc">Prediction</span></a> to understand which part of the process is slow for you. For a fair comparison, also use <code class="docutils literal notranslate"><span class="pre">--disable-cuda</span></code> because the reference in this documentation is created without CUDA.</p>
 </div>
-<div class="section" id="python-h-or-gcc-is-missing">
-<h2>Python.h or gcc is missing<a class="headerlink" href="#python-h-or-gcc-is-missing" title="Permalink to this headline">¶</a></h2>
-<p>On most systems, you should be able to use a binary wheel (a pre-built binary compilation) so that you don’t need to install from source.</p>
-<p>Source installation might fail with an exception complaining about a missing <code class="docutils literal notranslate"><span class="pre">Python.h</span></code> file or missing <code class="docutils literal notranslate"><span class="pre">gcc</span></code>. This means that you need the development files for Python itself and a C compiler. On Ubuntu systems, you can get this with <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">python3-dev</span></code>. For more operating systems, there is a good <a class="reference external" href="https://stackoverflow.com/questions/21530577/fatal-error-python-h-no-such-file-or-directory">StackOverflow post</a> on the topic.</p>
 </div>
 </div>
 
@@ -429,8 +425,8 @@ python -c &quot;import torch; print(torch.cuda.is_available())&quot;
         
         <div class='prev-next-bottom'>
             
-    <a class='left-prev' id="prev-link" href="plugins_overview.html" title="previous page">Plugins</a>
-    <a class='right-next' id="next-link" href="plugins_crowdpose.html" title="next page">CrowdPose</a>
+    <a class='left-prev' id="prev-link" href="plugins_crowdpose.html" title="previous page">CrowdPose</a>
+    <a class='right-next' id="next-link" href="plugins_cifar10.html" title="next page">Cifar10</a>
 
         </div>
         

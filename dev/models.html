@@ -167,6 +167,11 @@
   </a>
  </li>
  <li class="toctree-l1">
+  <a class="reference internal" href="tutorial_opencv.html">
+   OpenCV
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="plugins_cifar10.html">
    Cifar10
   </a>
@@ -349,7 +354,7 @@
 </div>
 <div class="section" id="models">
 <h1>Models<a class="headerlink" href="#models" title="Permalink to this headline">¶</a></h1>
-<p>For now, see Method section in our publication for an architecture overview.</p>
+<p>For now, see Method section in our publication <span id="id1">[<a class="reference internal" href="intro.html#id4"><span>KBA19</span></a>]</span> for an architecture overview.</p>
 <div class="section" id="base-networks">
 <h2>Base Networks<a class="headerlink" href="#base-networks" title="Permalink to this headline">¶</a></h2>
 <p>The following types of base networks have implementations and can be used with the <code class="docutils literal notranslate"><span class="pre">--basenet</span></code> command line argument for training. Not all base networks are well optimized and you can consult the <a class="reference internal" href="intro.html#introduction"><span class="std std-ref">Introduction</span></a> for benchmark results.</p>
@@ -466,7 +471,7 @@
 <p>To get started, have a look how the head metas are created in <code class="docutils literal notranslate"><span class="pre">CocoKp</span></code> for new pose datasets and in <code class="docutils literal notranslate"><span class="pre">CocoDet</span></code> for new detection datasets.</p>
 </div>
 <div class="section" id="coordinate-system">
-<span id="id1"></span><h2>Coordinate System<a class="headerlink" href="#coordinate-system" title="Permalink to this headline">¶</a></h2>
+<span id="id2"></span><h2>Coordinate System<a class="headerlink" href="#coordinate-system" title="Permalink to this headline">¶</a></h2>
 <p>When adding your own datasets or transformations, it is good to keep in mind the coordinate system that OpenPifPaf assumes. The short summary is, everything is done in such a way that annotation coordinates only need to be multiplied by the image rescaling factor without offset. Therefore, the (0, 0) feature map needs to be aligned with the (0, 0) pixel.</p>
 <p><img alt="coordinate system" src="_images/coordinate_system.png" /></p>
 <p>This also shows that training image sizes must be a multiple of the network stride <em>plus one</em>, i.e., in the above image, an input image size of <span class="math notranslate nohighlight">\(5\times5\)</span> would be optimal for a feature map of size <span class="math notranslate nohighlight">\(2\times2\)</span> because the stride is 4.</p>
